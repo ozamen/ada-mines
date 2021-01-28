@@ -2,18 +2,18 @@ with Ada.Text_IO;
 use Ada.Text_IO;
 
 procedure main is
-    type My_Int is range 0 .. 1000;
-    type col is range 1 .. 4;
-    type line is range 1 .. 4;
-    type My_Int_Array is array (col, line) of My_Int;
-    Arr : My_Int_Array := ((3, 6, 7, 1), (5, 1, 2, 7), (5, 1, 2, 7), (5, 1, 2, 7));
+    type Status is range 0 .. 5;
+    type Col is range 1 .. 4;
+    type Line is range 1 .. 4;
+    type Array2D is array (Col, Line) of Status;
+    Board : Array2D := ((3, 2, 3, 1), (5, 1, 2, 0), (5, 1, 2, 2), (5, 1, 2, 1));
 begin
    Ada.Text_IO.Put_Line ("Welcome to ADA Minesweeper v1.0.0");
 
-   for i in col loop
+   for i in Col loop
        Put("| ");
-       for j in line loop
-            Put(My_Int'Image (Arr (i, j)));
+       for j in Line loop
+            Put(Status'Image (Board (i, j)));
             Put(" | ");
         end loop;
         New_Line;
