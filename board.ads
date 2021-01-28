@@ -4,11 +4,15 @@ with Ada.Numerics.discrete_Random;
 
 package Board is
 
-    Height: constant Integer := 16;
-    Width: constant Integer := 30;
-    MinesNumber: constant Integer := 99;
+    -- Typical Settings (cf wikipedia)
+    --Height: constant Integer := 16;
+    --Width: constant Integer := 30;
+    --MinesNumber: constant Integer := 99;
 
-    --type Status is range 0 .. 5;
+    Height: constant Integer := 5;
+    Width: constant Integer := 5;
+    MinesNumber: constant Integer := 10;
+
     subtype Col is Integer range 0 .. Width - 1;
     subtype Line is Integer range 0 .. Height - 1;
     type Array2D is array (Col, Line) of Integer;
