@@ -1,6 +1,6 @@
 # please install gcc-ada
 
-SOURCES=main.adb
+SOURCES=src/main.adb
 BIN=mines
 
 .PHONY: all soft-clean clean check
