@@ -24,5 +24,6 @@ package Board is
    function checkMine(Board : Array2D; Pos_x : Integer ; Pos_y : Integer) return Integer;
    function checkCoord(Board : Array2D; Pos_x : Integer ; Pos_y : Integer) return Boolean;
    function generateRandom(size : Integer) return Integer;
+   function copyBoard(Board : Array2D) return Array2D;
 
 end Board;

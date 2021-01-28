@@ -23,6 +23,20 @@ package body Board is
       New_Line;
    end DumpBoard;
 
+   function copyBoard(Board : Array2D) return Array2D is
+       NewBoard : Array2D;
+   begin
+       for i in Line loop
+           for j in Col loop
+               NewBoard(j, i) := Board(j, i);
+           end loop;
+       end loop;
+       return NewBoard;
+   end copyBoard;
+
+
+
+
    -- GENERATE THE BOARD WITH THE FIRST CLICK POSITION OF THE USER
    function generateBoard(Userclick_x : Col; Userclick_y : Line) return Array2D is
        Board : Array2D := ((others => (others => 0)));

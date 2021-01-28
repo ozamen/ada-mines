@@ -3,6 +3,12 @@ with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 with Board; use Board;
 
 package Game is
-    function generateUserBoard(Board, MineBoard : Array2D; Userclick_x : Integer; Userclick_y : Integer) return Array2D;
+    function generateUserBoard return Array2D;
+
+
+    function updateUserBoard(UserBoard, RealBoard, MineBoard : Array2D; Userclick_x, Userclick_y : Integer) return Array2D;
+    function setFlag(UserBoard : Array2D; Pos_x, Pos_y : Integer) return Array2D;
+
+
 
 end Game;

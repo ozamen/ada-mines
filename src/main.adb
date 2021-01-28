@@ -8,12 +8,24 @@ procedure main is
 begin
    Ada.Text_IO.Put_Line ("Welcome to ADA Minesweeper v1.0.0");
 
+
+   -- ASK TO CLICK WHEREVER THE USER WANTS
    Userclick_x := 2; Userclick_y := 3;
    RealBoard := generateBoard(Userclick_x, Userclick_y);
    DumpBoard (RealBoard);
    MineBoard := generateMineBoard(RealBoard);
    DumpBoard (MineBoard);
-   UserBoard := generateUserBoard(RealBoard, MineBoard, Userclick_x, Userclick_y);
+   UserBoard := generateUserBoard;
+   DumpBoard (UserBoard);
+   UserBoard := updateUserBoard(UserBoard, RealBoard, MineBoard, 3, 4);
+   DumpBoard (UserBoard);
+
+   -- USER WANT TO FLAG CELL 2, 4
+   UserBoard := setFlag(UserBoard, 2, 4);
+   DumpBoard (UserBoard);
+
+   -- USER WANT TO CLICK ON 1, 0
+   UserBoard := updateUserBoard(UserBoard, RealBoard, MineBoard, 1, 0);
    DumpBoard (UserBoard);
 
 
