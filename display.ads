@@ -7,7 +7,6 @@ package Display is
     type Col is range 1 .. 4;
     type Line is range 1 .. 4;
     type Array2D is array (Col, Line) of Status;
-    Board : Array2D := ((3, 2, 3, 1), (5, 1, 2, 0), (5, 1, 2, 2), (5, 1, 2, 1));
 
    procedure DumpBoard(Board : Array2D);
 
