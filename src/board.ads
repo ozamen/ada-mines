@@ -10,7 +10,7 @@ package Board is
     --MinesNumber: constant Integer := 99;
 
     Height: constant Integer := 5;
-    Width: constant Integer := 5;
+    Width: constant Integer := 10;
     MinesNumber: constant Integer := 10;
 
     subtype Col is Integer range 0 .. Width - 1;
@@ -22,7 +22,7 @@ package Board is
    function generateMineBoard (Board : Array2D) return Array2D;
    function getMineCount(Board : Array2D; Pos_x : Col ; Pos_y : Line) return Integer;
    function checkMine(Board : Array2D; Pos_x : Integer ; Pos_y : Integer) return Integer;
-   function checkCoord(Board : Array2D; Pos_x : Integer ; Pos_y : Integer) return Boolean;
+   function checkCoord(Pos_x : Integer ; Pos_y : Integer) return Boolean;
    function generateRandom(size : Integer) return Integer;
    function copyBoard(Board : Array2D) return Array2D;
 

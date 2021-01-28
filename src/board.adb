@@ -100,7 +100,7 @@ package body Board is
    function checkMine(Board : Array2D; Pos_x : Integer ; Pos_y : Integer) return Integer is
        Sum : Integer := 0;
    begin
-       if checkCoord(Board, Pos_x, Pos_y) then
+       if checkCoord(Pos_x, Pos_y) then
            if Board(Pos_x, Pos_y) = 1 then
                return 1;
            else
@@ -111,7 +111,7 @@ package body Board is
        end if;
    end checkMine;
 
-   function checkCoord(Board : Array2D; Pos_x : Integer ; Pos_y : Integer) return Boolean is
+   function checkCoord(Pos_x : Integer ; Pos_y : Integer) return Boolean is
    begin
        if Pos_x < 0 or Pos_y < 0 or Pos_x >= Width or Pos_y >= Height then
            return False;

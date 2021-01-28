@@ -21,12 +21,12 @@ begin
    DumpBoard (UserBoard);
 
    -- USER WANT TO FLAG CELL 2, 4
-   UserBoard := setFlag(UserBoard, 2, 4);
-   DumpBoard (UserBoard);
+   --UserBoard := setFlag(UserBoard, 2, 4);
+   --DumpBoard (UserBoard);
 
    -- USER WANT TO CLICK ON 1, 0
-   UserBoard := updateUserBoard(UserBoard, RealBoard, MineBoard, 1, 0);
-   DumpBoard (UserBoard);
+   --UserBoard := updateUserBoard(UserBoard, RealBoard, MineBoard, 1, 0);
+   --DumpBoard (UserBoard);
 
 
 end main;
