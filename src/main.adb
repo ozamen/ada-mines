@@ -17,7 +17,8 @@ begin
    DumpBoard (MineBoard);
    UserBoard := generateUserBoard;
    DumpBoard (UserBoard);
-   UserBoard := updateUserBoard(UserBoard, RealBoard, MineBoard, 3, 4);
+
+   UserBoard := updateUserBoard(UserBoard, RealBoard, MineBoard, Userclick_x, Userclick_y);
    DumpBoard (UserBoard);
 
    -- USER WANT TO FLAG CELL 2, 4
