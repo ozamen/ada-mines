@@ -4,19 +4,21 @@ package body Board is
    -- PRINT THE CONSOLE BOARD
    procedure DumpBoard(Board : Array2D) is
    begin
+      Put("            "); Put_Line(" 0 1 2 3 4 5 6 7 8");
+      Put("            ");
       for i in 0 .. Width loop
           Put("--");
       end loop;
       New_Line;
 
       for i in Line loop
-          Put("");
+          Put(i); Put("|");
           for j in Col loop
               Put(Integer'Image (Board (j, i)));
           end loop;
           New_Line;
       end loop;
-
+      Put("            ");
       for i in 0 .. Width loop
           Put("--");
       end loop;
@@ -79,8 +81,8 @@ package body Board is
    end generateMineBoard;
 
    -- GENERATE EMPTY USERBOARD
-   function generateUserBoard return Array2D is
-       Board : Array2D := ((others => (others => 0)));
+   function generateUserBoard(initValue : Integer) return Array2D is
+       Board : Array2D := ((others => (others => initValue)));
    begin
        Put("[GENERATE USER BOARD]"); New_Line;
        return Board;

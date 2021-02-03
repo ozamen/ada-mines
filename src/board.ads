@@ -5,13 +5,13 @@ with Ada.Numerics.discrete_Random;
 package Board is
 
     -- Typical Settings (cf wikipedia)
-    --Height: constant Integer := 16;
-    --Width: constant Integer := 30;
-    --MinesNumber: constant Integer := 99;
+    Height: constant Integer := 16;
+    Width: constant Integer := 30;
+    MinesNumber: constant Integer := 99;
 
-    Height: constant Integer := 5;
-    Width: constant Integer := 10;
-    MinesNumber: constant Integer := 10;
+    --Height: constant Integer := 10;
+    --Width: constant Integer := 9;
+    --MinesNumber: constant Integer := 10;
 
     subtype Col is Integer range 0 .. Width - 1;
     subtype Line is Integer range 0 .. Height - 1;
@@ -21,7 +21,7 @@ package Board is
 
    function generateBoard (Userclick_x : Col; Userclick_y : Line) return Array2D;
    function generateMineBoard (Board : Array2D) return Array2D;
-   function generateUserBoard return Array2D;
+   function generateUserBoard(initValue : Integer) return Array2D;
 
    function getMineCount(Board : Array2D; Pos_x : Col ; Pos_y : Line) return Integer;
    function checkMine(Board : Array2D; Pos_x : Integer ; Pos_y : Integer) return Integer;

@@ -3,9 +3,31 @@ package body Game is
     -- Click on the board at (Userclick_x, Userclick_y)
     function clickBoard(UserBoard, RealBoard, MineBoard : Array2D; Userclick_x, Userclick_y : Integer) return Array2D is
         NewUserBoard : Array2D :=  copyBoard(UserBoard);
+        discoverBoard : Array2D;
     begin
-        Put("[CLICK BOARD]"); New_Line;
-        NewUserBoard := discoverZone(NewUserBoard, RealBoard, MineBoard, Userclick_x, Userclick_y);
+        Put("[USERCLICK]"); New_Line;
+
+        -- CHECK IF USER CLICK ON A MINE
+        if RealBoard(Userclick_x, Userclick_y) = 1 then
+            Put("PERDU"); New_Line;
+            return generateUserBoard(666);
+        end if;
+
+        Put("[GENERATE DISCOVER BOARD]"); New_Line;
+        discoverBoard := discoverZone(NewUserBoard, RealBoard, MineBoard, Userclick_x, Userclick_y);
+        -- DumpBoard(discoverBoard);
+
+        -- MERGE DISCOVER BOARD WITH USER BOARD
+        Put("[GENERATE USER BOARD]"); New_Line;
+        for i in Line loop
+            for j in Col loop
+                if discoverBoard(j, i) = 1 then
+                    NewUserBoard(j, i) := MineBoard (j, i);
+                end if;
+            end loop;
+        end loop;
+
+
         return NewUserBoard;
     end clickBoard;
 
@@ -13,30 +35,58 @@ package body Game is
     function setFlag(UserBoard : Array2D; Userclick_x, Userclick_y : Integer) return Array2D is
         NewUserBoard : Array2D := copyBoard(UserBoard);
     begin
-        if UserBoard(Userclick_x, Userclick_y) = 0 then
-            NewUserBoard(Userclick_x, Userclick_y) := 2;
+        if UserBoard(Userclick_x, Userclick_y) = -1 then
+            NewUserBoard(Userclick_x, Userclick_y) := 9;
         else
             Put("C PAS UNE CASE FERMÉ T OUF"); New_Line;
         end if;
         return NewUserBoard;
     end setFlag;
 
+    -- Count number of flag put in the board
+    function countFlag(UserBoard : Array2D) return Integer is
+        sum : Integer := 0;
+    begin
+        for i in Line loop
+            for j in Col loop
+                if UserBoard(j, i) = 9 then
+                    sum := sum + 1;
+                end if;
+            end loop;
+        end loop;
+        return sum;
+    end countFlag;
+
+    -- Count number of mine flagged in the board
+    function countFlaggedMine(UserBoard, RealBoard : Array2D) return Integer is
+        sum : Integer := 0;
+    begin
+        for i in Line loop
+            for j in Col loop
+                if UserBoard(j, i) = 9 and RealBoard(j, i) = 1 then
+                    sum := sum + 1;
+                end if;
+            end loop;
+        end loop;
+        return sum;
+    end countFlaggedMine;
+
     -- Discovering (Pos_x, Pos_y) for each different cases
     function discoverZone(UserBoard, RealBoard, MineBoard : Array2D; Pos_x, Pos_y : Integer) return Array2D is
         NewUserBoard : Array2D :=  copyBoard(UserBoard);
     begin
         if not checkCoord(Pos_x, Pos_y) then
-            Put("PAF LE MUR"); New_Line;
+            --Put("PAF LE MUR"); New_Line;
             return NewUserBoard;
         end if;
 
         if UserBoard(Pos_x, Pos_y) = 1 then
-            Put("DEFA FAIT"); New_Line;
+            --Put("DEFA FAIT"); New_Line;
             return NewUserBoard;
         end if;
 
         if UserBoard(Pos_x, Pos_y) = 2 then
-            Put("IL Y A UN FLAG J'OUVRE PAS ÇA T OUF"); New_Line;
+            --Put("IL Y A UN FLAG J'OUVRE PAS ÇA T OUF"); New_Line;
             return NewUserBoard;
         end if;
 
