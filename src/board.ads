@@ -18,8 +18,11 @@ package Board is
     type Array2D is array (Col, Line) of Integer;
 
    procedure DumpBoard(Board : Array2D);
+
    function generateBoard (Userclick_x : Col; Userclick_y : Line) return Array2D;
    function generateMineBoard (Board : Array2D) return Array2D;
+   function generateUserBoard return Array2D;
+
    function getMineCount(Board : Array2D; Pos_x : Col ; Pos_y : Line) return Integer;
    function checkMine(Board : Array2D; Pos_x : Integer ; Pos_y : Integer) return Integer;
    function checkCoord(Pos_x : Integer ; Pos_y : Integer) return Boolean;

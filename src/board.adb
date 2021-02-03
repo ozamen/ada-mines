@@ -34,9 +34,6 @@ package body Board is
        return NewBoard;
    end copyBoard;
 
-
-
-
    -- GENERATE THE BOARD WITH THE FIRST CLICK POSITION OF THE USER
    function generateBoard(Userclick_x : Col; Userclick_y : Line) return Array2D is
        Board : Array2D := ((others => (others => 0)));
@@ -80,6 +77,14 @@ package body Board is
 
        return MineBoard;
    end generateMineBoard;
+
+   -- GENERATE EMPTY USERBOARD
+   function generateUserBoard return Array2D is
+       Board : Array2D := ((others => (others => 0)));
+   begin
+       Put("[GENERATE USER BOARD]"); New_Line;
+       return Board;
+   end generateUserBoard;
 
    -- GET DISTANCE
    function getMineCount(Board : Array2D; Pos_x : Col ; Pos_y : Line) return Integer is
