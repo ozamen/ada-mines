@@ -5,9 +5,9 @@ with Ada.Numerics.discrete_Random;
 package Board is
 
     -- Typical Settings (cf wikipedia)
-    Height: constant Integer := 16;
-    Width: constant Integer := 30;
-    MinesNumber: constant Integer := 99;
+    Height: constant Integer := 10;
+    Width: constant Integer := 10;
+    MinesNumber: constant Integer := 10;
 
     --Height: constant Integer := 10;
     --Width: constant Integer := 9;
