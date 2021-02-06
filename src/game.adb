@@ -134,10 +134,10 @@ package body Game is
 
          NewUserBoard := clickBoard(NewUserBoard, RealBoard, MineBoard, Userclick_x, Userclick_y);
 
-         if UserBoard(0, 0) = 666 then
+         if NewUserBoard(0, 0) = 666 then
             GameStatus := 2;
          else
-            DumpBoard (UserBoard);
+            DumpBoard (NewUserBoard);
          end if;
 
          if countFlaggedMine(UserBoard, RealBoard) = MinesNumber then
