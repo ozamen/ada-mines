@@ -43,7 +43,7 @@ package body Board is
    begin
        put("[GENERATE BOARD]"); New_Line;
        Board (Userclick_x, Userclick_y) := 2;
-       for i in 0 .. MinesNumber loop
+       for i in 0 .. MinesNumber - 1 loop
             Pos_x := generateRandom(Width - 1);
             Pos_y := generateRandom(Height - 1);
             Diff_x := abs (Userclick_x - Pos_x);

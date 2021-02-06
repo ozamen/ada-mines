@@ -57,19 +57,19 @@ package body Game is
         return sum;
     end countFlag;
 
-    -- Count number of mine flagged in the board
-    function countFlaggedMine(UserBoard, RealBoard : Array2D) return Integer is
+    -- Count number of discover cell in the board
+    function countUndiscoverCell(UserBoard : Array2D) return Integer is
         sum : Integer := 0;
     begin
         for i in Line loop
             for j in Col loop
-                if UserBoard(j, i) = 9 and RealBoard(j, i) = 1 then
+                if UserBoard(j, i) = -1 or UserBoard(j, i) = 9 then
                     sum := sum + 1;
                 end if;
             end loop;
         end loop;
         return sum;
-    end countFlaggedMine;
+    end countUndiscoverCell;
 
     -- Discovering (Pos_x, Pos_y) for each different cases
     function discoverZone(UserBoard, RealBoard, MineBoard : Array2D; Pos_x, Pos_y : Integer) return Array2D is
@@ -117,5 +117,34 @@ package body Game is
             NewDiscoverBoard := discoverZone(NewDiscoverBoard, RealBoard, MineBoard, Pos_x + Pos_x_Neighboors(i), Pos_y + Pos_y_Neighboors(i));
         end loop;
         return NewDiscoverBoard;
-    end discoverSafeZone;
+   end discoverSafeZone;
+
+   function gameLoop(UserBoard, RealBoard, MineBoard : Array2D) return Integer is
+      GameStatus : Integer := 0;
+      Userclick_x : Integer; Userclick_y : Integer;
+      NewUserBoard : Array2D := copyBoard(UserBoard);
+   begin
+      while GameStatus = 0 loop
+         Put("Apparently Mines Remaining: "); Put(MinesNumber - countFlag(UserBoard)); New_Line;
+         Put("Number of Undiscover Cell: "); Put(countUndiscoverCell(UserBoard)); New_Line;
+
+         Put_Line("Userclick_x: "); Get(Userclick_x, 2); Skip_Line;
+         Put_Line("Userclick_y: "); Get(Userclick_y, 2); Skip_Line;
+         Put("Userclick_x: "); Put(Userclick_x); Put("| Userclick_y: "); Put(Userclick_y); New_Line;
+
+         NewUserBoard := clickBoard(NewUserBoard, RealBoard, MineBoard, Userclick_x, Userclick_y);
+
+         if NewUserBoard(0, 0) = 666 then
+            GameStatus := 2;
+         else
+            DumpBoard (NewUserBoard);
+         end if;
+
+         if countUndiscoverCell(NewUserBoard) = MinesNumber then
+            GameStatus := 1;
+         end if;
+      end loop;
+
+      return GameStatus;
+   end gameLoop;
 end Game;

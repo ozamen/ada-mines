@@ -8,8 +8,9 @@ package Game is
     function clickBoard(UserBoard, RealBoard, MineBoard : Array2D; Userclick_x, Userclick_y : Integer) return Array2D;
     function setFlag(UserBoard : Array2D; Userclick_x, Userclick_y : Integer) return Array2D;
     function countFlag(UserBoard : Array2D) return Integer;
-    function countFlaggedMine(UserBoard, RealBoard : Array2D) return Integer;
+    function countUndiscoverCell(UserBoard : Array2D) return Integer;
     function discoverZone(UserBoard, RealBoard, MineBoard : Array2D; Pos_x, Pos_y : Integer) return Array2D;
     function discoverSafeZone(DiscoverBoard, RealBoard, MineBoard : Array2D; Pos_x, Pos_y : Integer) return Array2D;
+    function gameLoop(UserBoard, RealBoard, MineBoard : Array2D) return Integer;
 
 end Game;
