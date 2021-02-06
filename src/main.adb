@@ -47,25 +47,7 @@ begin
 
 
 
-   while GameStatus = 0 loop
-       Put("Apparently Mines Remaining: "); Put(MinesNumber - countFlag(UserBoard)); New_Line;
-       Put("Number of Flagged Mine: "); Put(countFlaggedMine(UserBoard, RealBoard)); New_Line;
-
-       Put_Line("Userclick_x: "); Get(Userclick_x, 2); Skip_Line;
-       Put_Line("Userclick_y: "); Get(Userclick_y, 2); Skip_Line;
-       Put("Userclick_x: "); Put(Userclick_x); Put("| Userclick_y: "); Put(Userclick_y); New_Line;
-
-       UserBoard := clickBoard(UserBoard, RealBoard, MineBoard, Userclick_x, Userclick_y);
-       if UserBoard(0, 0) = 666 then
-           GameStatus := 2;
-       else
-           DumpBoard (UserBoard);
-       end if;
-
-       if countFlaggedMine(UserBoard, RealBoard) = MinesNumber then
-           GameStatus := 1;
-       end if;
-   end loop;
+   GameStatus := gameLoop(UserBoard, RealBoard, MineBoard);
 
    if GameStatus = 1 then
        Put("******* WIN ********"); New_Line;

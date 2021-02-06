@@ -117,5 +117,34 @@ package body Game is
             NewDiscoverBoard := discoverZone(NewDiscoverBoard, RealBoard, MineBoard, Pos_x + Pos_x_Neighboors(i), Pos_y + Pos_y_Neighboors(i));
         end loop;
         return NewDiscoverBoard;
-    end discoverSafeZone;
+   end discoverSafeZone;
+
+   function gameLoop(UserBoard, RealBoard, MineBoard : Array2D) return Integer is
+      GameStatus : Integer := 0;
+      Userclick_x : Integer; Userclick_y : Integer;
+      NewUserBoard : Array2D := copyBoard(UserBoard);
+   begin
+      while GameStatus = 0 loop
+         Put("Apparently Mines Remaining: "); Put(MinesNumber - countFlag(UserBoard)); New_Line;
+         Put("Number of Flagged Mine: "); Put(countFlaggedMine(UserBoard, RealBoard)); New_Line;
+
+         Put_Line("Userclick_x: "); Get(Userclick_x, 2); Skip_Line;
+         Put_Line("Userclick_y: "); Get(Userclick_y, 2); Skip_Line;
+         Put("Userclick_x: "); Put(Userclick_x); Put("| Userclick_y: "); Put(Userclick_y); New_Line;
+
+         NewUserBoard := clickBoard(NewUserBoard, RealBoard, MineBoard, Userclick_x, Userclick_y);
+
+         if UserBoard(0, 0) = 666 then
+            GameStatus := 2;
+         else
+            DumpBoard (UserBoard);
+         end if;
+
+         if countFlaggedMine(UserBoard, RealBoard) = MinesNumber then
+            GameStatus := 1;
+         end if;
+      end loop;
+
+      return GameStatus;
+   end gameLoop;
 end Game;

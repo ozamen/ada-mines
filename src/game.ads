@@ -11,5 +11,6 @@ package Game is
     function countFlaggedMine(UserBoard, RealBoard : Array2D) return Integer;
     function discoverZone(UserBoard, RealBoard, MineBoard : Array2D; Pos_x, Pos_y : Integer) return Array2D;
     function discoverSafeZone(DiscoverBoard, RealBoard, MineBoard : Array2D; Pos_x, Pos_y : Integer) return Array2D;
+    function gameLoop(UserBoard, RealBoard, MineBoard : Array2D) return Integer;
 
 end Game;
