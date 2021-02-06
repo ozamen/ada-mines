@@ -23,7 +23,6 @@ begin
    initGTK(UserBoard);
    DumpGTK(UserBoard);
 
-   if 1 = 0 then
    Userclick_x := 2; Userclick_y := 3; Put_Line("Userclick_x: ");
    Get(Userclick_x, 2); Skip_Line;
    Put_Line("Userclick_y: "); Get(Userclick_y, 2); Skip_Line;
@@ -54,7 +53,6 @@ begin
        Put("******* WIN ********"); New_Line;
    else
        Put("****** PERDU *******"); New_Line;
-      end if;
 
       end if;
 end Main;

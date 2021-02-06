@@ -65,7 +65,7 @@ package body Display is
 
       vbox.add(table);
 
-      Connect(ev_box, "button-press-event", To_Marshaller(on_click'Access));
+      --Connect(ev_box, "button-press-event", To_Marshaller(on_click'Access));
 
       for i in Integer range 0 .. 9 loop
          for j in Integer range 0 .. 9 loop

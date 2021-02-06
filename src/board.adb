@@ -13,8 +13,8 @@ package body Board is
 
       for i in Line loop
           Put(i); Put("|");
-          for j in Col loop
-              Put(Integer'Image (Board (j, i)));
+         for j in Col loop
+            Put(Integer'Image (Board (j, i)));
           end loop;
           New_Line;
       end loop;
