@@ -1,4 +1,6 @@
 with Gdk.Event;       use Gdk.Event;
+with GTk.Event_Box;   use Gtk.Event_Box;
+with Gtk.Handlers;    use Gtk.Handlers;
 with Gtk.Box;         use Gtk.Box;
 with Gtk.Table;       use Gtk.Table;
 with Gtk.Widget;      use Gtk.Widget;
@@ -11,6 +13,11 @@ with Glib.Error; use Glib.Error;
 with Glib; use Glib;
 with Ada.Text_IO; use Ada.Text_IO;
 with Board; Use Board;
+
+
+
+
+
 
 package Display is
    subtype Col is Integer range 0 .. Width - 1;

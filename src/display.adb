@@ -1,112 +1,101 @@
 
 
 package body Display is
+
+   function on_click(em : access Gtk_Event_Box_Record'class; ev : Gdk_Event)
+     return Boolean;
+
+      function on_click(em : access Gtk_Event_Box_Record'class; ev : Gdk_Event)
+     return Boolean
+   is
+   begin
+      put("stp marche frrrr");
+      return True;
+   end on_click;
+
    -- INIT GTK
    procedure initGTK(UserBoard : Array2D) is
+      Win    : Gtk_Window;
+      img    : Gtk_Image;
+      pixbuf : Gdk_Pixbuf;
+      vbox   : Gtk_Vbox;
+      err    : GError;
+      table  : Gtk_Table;
+      ev_box : Gtk_Event_Box;
+
+      function Delete_Event_Cb
+        (Self  : access Gtk_Widget_Record'Class;
+         Event : Gdk.Event.Gdk_Event)
+         return Boolean;
+
+      ---------------------
+      -- Delete_Event_Cb --
+      ---------------------
+
+      function Delete_Event_Cb
+        (Self  : access Gtk_Widget_Record'Class;
+         Event : Gdk.Event.Gdk_Event)
+         return Boolean
+      is
+         pragma Unreferenced (Self, Event);
+      begin
+         Gtk.Main.Main_Quit;
+         return True;
+      end Delete_Event_Cb;
+
    begin
       Put("INIT GTK");
 
-      --Win    : Gtk_Window;
-   --img    : Gtk_Image;
-   --pixbuf : Gdk_Pixbuf;
-   --vbox   : Gtk_Vbox;
-   --hbox   : Gtk_Hbox;
-   --err    : GError;
-   --button : Gtk_Button;
-   --table  : Gtk_Table;
+      --Initialize GtkAda.
+      Gtk.Main.Init;
 
-   --function Delete_Event_Cb
-   --(Self  : access Gtk_Widget_Record'Class;
-   --Event : Gdk.Event.Gdk_Event)
-   --   return Boolean;
+      Gtk_New (Win);
+      Set_Title (Win, "Ada Minesweeper - OZAMEN");
+      Win.Set_Default_Size (250, 250);
 
-   ---------------------
-   -- Delete_Event_Cb --
-   ---------------------
+      Gtk_New(ev_box);
+      win.add(ev_box);
 
-   --function Delete_Event_Cb
-    --(Self  : access Gtk_Widget_Record'Class;
-     --Event : Gdk.Event.Gdk_Event)
-     --return Boolean
-   --is
-      --pragma Unreferenced (Self, Event);
-   --begin
-      --Gtk.Main.Main_Quit;
-      --return True;
-   --end Delete_Event_Cb;
+      Gtk_New_Vbox (vbox);
+      ev_box.Add (vbox);
 
+      table := Gtk_Table_New(10, 10, False);
+      table.Set_Col_Spacings(0);
+      table.Set_Row_Spacings(0);
 
-   --Initialize GtkAda.
-   --Gtk.Main.Init;
+      vbox.add(table);
 
-   --Create a window with a size of 400x400
-   --Gtk_New (Win);
-   --Set_Title (Win, "Ada Minesweeper - OZAMEN");
-   --Win.Set_Default_Size (250, 250);
-   --  Create a box to organize vertically the contents of the window
+      Connect(ev_box, "button-press-event", To_Marshaller(on_click'Access));
 
-   --Gtk_New_Vbox (vbox);
-   --Win.Add (vbox);
-
-   --Gtk_New(button);
-   --button.Set_Size_Request(16, 16);
-   --Box.add(button);
-   --table := Gtk_Table_New(10, 10, False);
-   --table.Set_Col_Spacings(0);
-   --table.Set_Row_Spacings(0);
-
-   --vbox.add(table);
+      for i in Integer range 0 .. 9 loop
+         for j in Integer range 0 .. 9 loop
+            if UserBoard(j, i) = -1 then
+               Gdk_New_From_File(pixbuf, "icons/not_disco.png", err );
+            end if;
+            if UserBoard(j, i) = 1 then
+               Gdk_New_From_File(pixbuf, "icons/1.png", err );
+            end if;
+            pixbuf := scale_simple(pixbuf, 25 , 25);
 
 
-   --for i in Integer range 1 .. 10 loop
-      --Gtk_New_Hbox (hbox);
-     -- for j in Integer range 1 .. 10 loop
+            Gtk_New (img, pixbuf);
+            Table.Attach_Defaults(img, Guint(i), Guint(i+1), Guint(j), Guint(j+1));
 
-         --Gdk_New_From_File(pixbuf, "flag.jpg", err );
-       --  pixbuf := scale_simple(pixbuf, 25 , 25);
-
-
-         --Gtk_New (img, pixbuf);
-         --Table.Attach_Defaults(img, Guint(i - 1), Guint(i), Guint(j-1), Guint(j));
-
-         --hbox.Add (img);
-     -- end loop;
-      --vbox.Add (hbox);
-   --end loop;
+         end loop;
+      end loop;
 
 
 
-   --for i in Line loop
-     -- Put(i); Put("|");
-      --for j in Col loop
-        -- if RealBoard(j, i) = 1 then
-         --Put(Integer'Image (Board (j, i)));
+      --Stop the Gtk process when closing the window
+      Win.On_Delete_Event (Delete_Event_Cb'Unrestricted_Access);
 
-          --Gdk_New_From_File(pixbuf, "flag.jpg", err );
-         --pixbuf := scale_simple(pixbuf, 25 , 25);
+      -- Show the window and present it
+      Win.Show_All;
+      Win.Present;
 
+      --Start the Gtk+ main loop
 
-         --Gtk_New (img, pixbuf);
-         --Table.Attach_Defaults(img, Guint(i), Guint(i + 1), Guint(j), Guint(j + 1));
-         --end if;
-      --end loop;
-      --New_Line;
-      --end loop;
-
-
-
-
-
-   -- Stop the Gtk process when closing the window
-   --Win.On_Delete_Event (Delete_Event_Cb'Unrestricted_Access);
-
-   --  Show the window and present it
-   --Win.Show_All;
-   --Win.Present;
-
-   --Start the Gtk+ main loop
-   --Gtk.Main.Main;
-   --end if;
+      Gtk.Main.Main;
 
    end initGTK;
 
@@ -116,7 +105,7 @@ package body Display is
       Put("DUMP GTK WINDOW");
       for i in Line loop
          for j in Col loop
-             Put(Integer'Image (UserBoard (j, i)));
+            Put(Integer'Image (UserBoard (j, i)));
          end loop;
          New_Line;
       end loop;
