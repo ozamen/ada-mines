@@ -57,19 +57,19 @@ package body Game is
         return sum;
     end countFlag;
 
-    -- Count number of mine flagged in the board
-    function countFlaggedMine(UserBoard, RealBoard : Array2D) return Integer is
+    -- Count number of discover cell in the board
+    function countUndiscoverCell(UserBoard : Array2D) return Integer is
         sum : Integer := 0;
     begin
         for i in Line loop
             for j in Col loop
-                if UserBoard(j, i) = 9 and RealBoard(j, i) = 1 then
+                if UserBoard(j, i) = -1 or UserBoard(j, i) = 9 then
                     sum := sum + 1;
                 end if;
             end loop;
         end loop;
         return sum;
-    end countFlaggedMine;
+    end countUndiscoverCell;
 
     -- Discovering (Pos_x, Pos_y) for each different cases
     function discoverZone(UserBoard, RealBoard, MineBoard : Array2D; Pos_x, Pos_y : Integer) return Array2D is
@@ -126,7 +126,7 @@ package body Game is
    begin
       while GameStatus = 0 loop
          Put("Apparently Mines Remaining: "); Put(MinesNumber - countFlag(UserBoard)); New_Line;
-         Put("Number of Flagged Mine: "); Put(countFlaggedMine(UserBoard, RealBoard)); New_Line;
+         Put("Number of Undiscover Cell: "); Put(countUndiscoverCell(UserBoard)); New_Line;
 
          Put_Line("Userclick_x: "); Get(Userclick_x, 2); Skip_Line;
          Put_Line("Userclick_y: "); Get(Userclick_y, 2); Skip_Line;
@@ -140,7 +140,7 @@ package body Game is
             DumpBoard (NewUserBoard);
          end if;
 
-         if countFlaggedMine(UserBoard, RealBoard) = MinesNumber then
+         if countUndiscoverCell(NewUserBoard) = MinesNumber then
             GameStatus := 1;
          end if;
       end loop;
