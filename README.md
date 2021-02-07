@@ -9,7 +9,7 @@ Un démineur en console écrit en Ada.
 Comment gagner au démineur ?
 Le but du jeu est de découvrir toutes les cases libres sans faire exploser les mines.
 
-La surface bleu correspond a la zone non découverte.
+La surface bleue correspond a la zone non découverte.
 
 Pour libérer une case, utiliser l'option DISCOVER en entrant le chiffre 2.
 Pour marquer une mine, utiliser l'option FLAG en entrant le chiffre 1, qui fera apparaître un drapeau.
@@ -50,13 +50,13 @@ Par défault, le jeu est au niveau "Beginner".
 
 > MinesBoard (Ne change pas pendant la partie)
 
-Nombre de bombe voisines
+Nombres de bombes sur les cases voisines
 
 > UserBoard (Change pendant la partie)
 
--1. fermé
-0-8. Nombres de cases voisines
-9. flag
+- -1: Fermé
+- 0-8: Nombres de bombes sur les cases voisines
+- 9: Flag
 
 ### Gestion du jeu (Game.adb)
 
