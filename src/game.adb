@@ -38,7 +38,7 @@ package body Game is
         if UserBoard(Userclick_x, Userclick_y) = -1 then
             NewUserBoard(Userclick_x, Userclick_y) := 9;
         else
-            Put("C PAS UNE CASE FERMÉ T OUF"); New_Line;
+            Put("THIS CELL IS ALREADY DISCOVER"); New_Line;
         end if;
         return NewUserBoard;
     end setFlag;
@@ -121,42 +121,44 @@ package body Game is
 
    function gameLoop(UserBoard, RealBoard, MineBoard : Array2D) return Integer is
       GameStatus : Integer := 0;
-      Userclick_x, Userclick_y : Integer;  UserOpId : Integer := 0;
+      Userclick_x, Userclick_y : Integer;  UserOpId : Integer;
       NewUserBoard : Array2D := copyBoard(UserBoard);
    begin
       while GameStatus = 0 loop
          Put("Apparently Mines Remaining: "); Put(MinesNumber - countFlag(UserBoard)); New_Line;
          Put("Number of Undiscover Cell: "); Put(countUndiscoverCell(UserBoard)); New_Line;
 
+         Userclick_x := -1; Userclick_y := -1; UserOpId := -1;
 
          while UserOpId /= 1 and UserOpId /= 2 loop
             Put("FLAG(1) or DISCOVER(2) a cell ?"); Get(UserOpId, 1); Skip_Line;
          end loop;
+
+         while not (Userclick_x >= 0 and Userclick_x < Width) loop
+            Put_Line("X: "); Get(Userclick_x, 2); Skip_Line;
+         end loop;
+
+         while not (Userclick_y >= 0 and Userclick_y < Height) loop
+            Put_Line("Y: "); Get(Userclick_y, 2); Skip_Line;
+         end loop;
+
          if UserOpId = 1 then
             -- USER WANT TO FLAG A CELL
-            Put_Line("FLAG Userclick_x: "); Get(Userclick_x, 2); Skip_Line;
-            Put_Line("FLAG Userclick_y: "); Get(Userclick_y, 2); Skip_Line;
-            Put("FLAG Userclick_x: "); Put(Userclick_x); Put("| FLAG Userclick_y: "); Put(Userclick_y); New_Line;
             NewUserBoard := setFlag(NewUserBoard, Userclick_x, Userclick_y);
          elsif UserOpId = 2 then
             -- USER WANT To DISCOVER A CELL
-            Put_Line("Userclick_x: "); Get(Userclick_x, 2); Skip_Line;
-            Put_Line("Userclick_y: "); Get(Userclick_y, 2); Skip_Line;
-            Put("Userclick_x: "); Put(Userclick_x); Put("| Userclick_y: "); Put(Userclick_y); New_Line;
             NewUserBoard := clickBoard(NewUserBoard, RealBoard, MineBoard, Userclick_x, Userclick_y);
          else
-            Put("TU RESPECTE PAS LA NORME MON GARS LA TU FAIS NIMP CEST CHAUD SANS DEC");
+            Put("ERROR UserOpId Parsing");
          end if;
 
 
          if NewUserBoard(0, 0) = 666 then
             GameStatus := 2;
+         elsif countUndiscoverCell(NewUserBoard) = MinesNumber then
+            GameStatus := 1;
          else
             DumpBoard (NewUserBoard);
-         end if;
-
-         if countUndiscoverCell(NewUserBoard) = MinesNumber then
-            GameStatus := 1;
          end if;
       end loop;
 
