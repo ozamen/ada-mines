@@ -16,6 +16,8 @@ procedure Main is
    subtype Line is Integer range 0 .. Height - 1;
 begin
    Ada.Text_IO.Put_Line ("Welcome to ADA Minesweeper v1.0 - An Ozamen Project");
+   New_Line;
+
 
    -- GENERATE THE INITIAL USER BOARD
    UserBoard := generateUserBoard(-1);
@@ -49,9 +51,9 @@ begin
    GameStatus := gameLoop(UserBoard, RealBoard, MineBoard);
 
    if GameStatus = 1 then
-       Put("******* WIN ********"); New_Line;
+       Put("           YOU WIN THE GAME! "); New_Line;
    else
-       Put("****** PERDU *******"); New_Line;
+       Put("           YOU LOST THE GAME! "); New_Line;
 
       end if;
 end Main;

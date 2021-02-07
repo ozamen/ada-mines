@@ -115,6 +115,16 @@ package body Game is
         return NewDiscoverBoard;
    end discoverSafeZone;
 
+   function Is_Numeric (Item : in String) return Boolean is
+      Dummy : Float;
+   begin
+      Dummy := Float'Value (Item);
+      return True;
+   exception
+      when others =>
+         return False;
+   end Is_Numeric;
+
    function gameLoop(UserBoard, RealBoard, MineBoard : Array2D) return Integer is
       GameStatus : Integer := 0;
       Userclick_x, Userclick_y : Integer;  UserOpId : Integer;

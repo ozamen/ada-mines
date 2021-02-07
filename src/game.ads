@@ -12,5 +12,6 @@ package Game is
     function discoverZone(UserBoard, RealBoard, MineBoard : Array2D; Pos_x, Pos_y : Integer) return Array2D;
     function discoverSafeZone(DiscoverBoard, RealBoard, MineBoard : Array2D; Pos_x, Pos_y : Integer) return Array2D;
     function gameLoop(UserBoard, RealBoard, MineBoard : Array2D) return Integer;
+    function Is_Numeric (Item : in String) return Boolean;
 
 end Game;

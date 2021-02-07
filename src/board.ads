@@ -4,15 +4,21 @@ with Ada.Numerics.discrete_Random;
 with Ada.Characters.Latin_1; use Ada.Characters.Latin_1;
 
 package Board is
-
-    -- Typical Settings (cf wikipedia)
+    -- BEGINNER MODE (10x10, 10 Mines)
     Height: constant Integer := 10;
     Width: constant Integer := 10;
     MinesNumber: constant Integer := 10;
 
+    -- ADVANCED MODE (16x16, 40 Mines)
     --Height: constant Integer := 10;
-    --Width: constant Integer := 9;
+    --Width: constant Integer := 10;
     --MinesNumber: constant Integer := 10;
+
+
+    --EXPERT MODE (30x16, 99 Mines)
+    --Height: constant Integer := 16;
+    --Width: constant Integer := 30;
+    --MinesNumber: constant Integer := 99;
 
     subtype Col is Integer range 0 .. Width - 1;
     subtype Line is Integer range 0 .. Height - 1;
