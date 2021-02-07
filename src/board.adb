@@ -143,7 +143,7 @@ package body Board is
    end getMineCount;
 
    function checkMine(Board : Array2D; Pos_x : Integer ; Pos_y : Integer) return Integer is
-       Sum : Integer := 0;
+      Sum : Integer := 0;
    begin
        if checkCoord(Pos_x, Pos_y) then
            if Board(Pos_x, Pos_y) = 1 then
