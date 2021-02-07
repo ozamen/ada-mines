@@ -7,8 +7,8 @@ package Board is
     -- CHOOSE YOUR DIFFICULTY
 
     -- BEGINNER MODE (10x10, 10 Mines)
-    Height: constant Integer := 10;
-    Width: constant Integer := 10;
+    Height: constant Integer := 20;
+    Width: constant Integer := 20;
     MinesNumber: constant Integer := 10;
 
     -- ADVANCED MODE (16x16, 40 Mines)

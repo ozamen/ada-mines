@@ -18,7 +18,11 @@ package body Board is
       New_Line;
       Put("            ");
       for i in 0 .. Width - 1 loop
-         Put(Integer'Image(i));
+         if i >= 10 then
+            Put(i, Width => 0);
+         else
+            Put(Integer'Image(i));
+         end if;
       end loop;
       Put_Line(" (x)");
 
