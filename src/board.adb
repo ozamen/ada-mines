@@ -3,7 +3,19 @@
 package body Board is
    -- PRINT THE CONSOLE BOARD
    procedure DumpBoard(Board : Array2D) is
+   Control_Preamble : constant Character := Character'Val (8#33#); -- '\033'
+   Clear_Screen_Code: constant String    := "[2J";
+   Home_Cursor_Code : constant String    := "[;H";
+
+   Clear_Screen_Sequence: constant String
+     := Control_Preamble & Clear_Screen_Code &
+        Control_Preamble & Home_Cursor_Code;
    begin
+      Put (Clear_Screen_Sequence);
+      New_Line;
+      Put_Line("              ADA MINESWEEPER v1.0");
+      Put_Line("          Ozamen Corp Inc. Production");
+      New_Line;
       Put("             "); Put_Line("0 1 2 3 4 5 6 7 8 9 (x)");
       --Put("            ");
       --for i in 0 .. Width loop
