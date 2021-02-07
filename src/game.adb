@@ -9,19 +9,19 @@ package body Game is
 
 
 
-        Put("[GENERATE DISCOVER BOARD]"); New_Line;
-        discoverBoard := discoverZone(NewUserBoard, RealBoard, MineBoard, Userclick_x, Userclick_y);
-        -- DumpBoard(discoverBoard);
+      Put("[GENERATE DISCOVER BOARD]"); New_Line;
+      discoverBoard := discoverZone(NewUserBoard, RealBoard, MineBoard, Userclick_x, Userclick_y);
+      -- DumpBoard(discoverBoard);
 
-        -- MERGE DISCOVER BOARD WITH USER BOARD
-        Put("[GENERATE USER BOARD]"); New_Line;
-        for i in Line loop
-            for j in Col loop
-                if discoverBoard(j, i) = 1 then
-                    NewUserBoard(j, i) := MineBoard (j, i);
-                end if;
-            end loop;
-        end loop;
+      -- MERGE DISCOVER BOARD WITH USER BOARD
+      Put("[GENERATE USER BOARD]"); New_Line;
+      for i in Line loop
+         for j in Col loop
+            if discoverBoard(j, i) = 1 then
+               NewUserBoard(j, i) := MineBoard (j, i);
+            end if;
+         end loop;
+      end loop;
 
 
         return NewUserBoard;
@@ -33,6 +33,8 @@ package body Game is
     begin
         if UserBoard(Userclick_x, Userclick_y) = -1 then
             NewUserBoard(Userclick_x, Userclick_y) := 9;
+        elsif UserBoard(Userclick_x, Userclick_y) = 9 then
+            NewUserBoard(Userclick_x, Userclick_y) := -1;
         else
             Put("THIS CELL IS ALREADY DISCOVER"); New_Line;
         end if;
@@ -72,17 +74,18 @@ package body Game is
         NewUserBoard : Array2D :=  copyBoard(UserBoard);
     begin
         if not checkCoord(Pos_x, Pos_y) then
-            --Put("PAF LE MUR"); New_Line;
             return NewUserBoard;
         end if;
 
         if UserBoard(Pos_x, Pos_y) = 1 then
-            --Put("DEFA FAIT"); New_Line;
             return NewUserBoard;
         end if;
 
         if UserBoard(Pos_x, Pos_y) = 2 then
-            --Put("IL Y A UN FLAG J'OUVRE PAS ÇA T OUF"); New_Line;
+            return NewUserBoard;
+        end if;
+
+      if UserBoard(Pos_x, Pos_y) = 9 then
             return NewUserBoard;
         end if;
 

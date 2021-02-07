@@ -57,18 +57,18 @@ package body Display is
       win.add(ev_box);
 
       Gtk_New_Vbox (vbox);
-      --ev_box.Add (vbox);
+      ev_box.Add (vbox);
 
       table := Gtk_Table_New(10, 10, False);
       table.Set_Col_Spacings(0);
       table.Set_Row_Spacings(0);
 
-      --vbox.add(table);
+      vbox.add(table);
 
       --Connect(ev_box, "button-press-event", To_Marshaller(on_click'Access));
 
-      for i in Integer range 0 .. 9 loop
-         for j in Integer range 0 .. 9 loop
+      for j in Integer range 0 .. 9 loop
+         for i in Integer range 0 .. 9 loop
             if UserBoard(j, i) = -1 then
                Gdk_New_From_File(pixbuf, "icons/not_disco.png", err );
             elsif UserBoard(j, i) = 0 then
@@ -95,7 +95,7 @@ package body Display is
 
             pixbuf := scale_simple(pixbuf, 25 , 25);
             Gtk_New (img, pixbuf);
-            Table.Attach_Defaults(img, Guint(i), Guint(i+1), Guint(j), Guint(j+1));
+            Table.Attach_Defaults(img, Guint(j), Guint(j+1), Guint(i), Guint(i+1));
 
          end loop;
       end loop;
