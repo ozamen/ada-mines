@@ -23,6 +23,7 @@ package Display is
    subtype Col is Integer range 0 .. Width - 1;
    subtype Line is Integer range 0 .. Height - 1;
 
-   procedure DumpGTK(UserBoard : Array2D);
-   procedure initGTK(UserBoard : Array2D);
+   procedure winGTK(UserBoard : Array2D);
+   procedure loseGTK(UserBoard : Array2D; RealBoard : Array2D);
+
 end Display;
