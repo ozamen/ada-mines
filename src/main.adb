@@ -10,13 +10,14 @@ with Display; use Display;
 procedure Main is
    RealBoard, MineBoard, UserBoard : Array2D;
    GameStatus : Integer:= 0;
-   Userclick_x, Userclick_y : Integer;
+   Userclick_x : Integer := -1; Userclick_y : Integer := -1;
 
    subtype Col is Integer range 0 .. Width - 1;
    subtype Line is Integer range 0 .. Height - 1;
 begin
    Ada.Text_IO.Put_Line ("Welcome to ADA Minesweeper v1.0 - An Ozamen Project");
 
+   -- GENERATE THE INITIAL USER BOARD
    UserBoard := generateUserBoard(-1);
    DumpBoard (UserBoard);
 
@@ -25,9 +26,12 @@ begin
    --DumpGTK(UserBoard);
 
    -- ASK TO DISCOVER THE FIRST CELL
-   Put_Line("Userclick_x: "); Get(Userclick_x, 2); Skip_Line;
-   Put_Line("Userclick_y: "); Get(Userclick_y, 2); Skip_Line;
-   Put("Userclick_x: "); Put(Userclick_x); Put("| Userclick_y: "); Put(Userclick_y); New_Line;
+   while not (Userclick_x >= 0 and Userclick_x < Width) loop
+      Put ("X: "); Get(Userclick_x, 2); Skip_Line;
+   end loop;
+   while not (Userclick_y >= 0 and Userclick_y < Height) loop
+      Put ("Y: "); Get(Userclick_y, 2); Skip_Line;
+   end loop;
 
    -- GENERATE THE REAL BOARD : MAPPING ALL THE MINE
    RealBoard := generateBoard(Userclick_x, Userclick_y);
@@ -41,6 +45,7 @@ begin
    -- PRINT THE BOARD
    DumpBoard (UserBoard);
 
+   -- START THE GAME LOOP
    GameStatus := gameLoop(UserBoard, RealBoard, MineBoard);
 
    if GameStatus = 1 then

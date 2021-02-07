@@ -121,13 +121,13 @@ package body Game is
       NewUserBoard : Array2D := copyBoard(UserBoard);
    begin
       while GameStatus = 0 loop
-         Put("Apparently Mines Remaining: "); Put(MinesNumber - countFlag(NewUserBoard)); New_Line;
-         Put("Number of Undiscover Cell: "); Put(countUndiscoverCell(NewUserBoard)); New_Line;
+         Put("Mines Remaining: "); Put(MinesNumber - countFlag(NewUserBoard)); New_Line;
+         --Put(" | Number of Undiscover Cell: "); Put(countUndiscoverCell(NewUserBoard)); New_Line;
 
          Userclick_x := -1; Userclick_y := -1; UserOpId := -1;
 
          while UserOpId /= 1 and UserOpId /= 2 loop
-            Put("FLAG(1) or DISCOVER(2) a cell ?"); Get(UserOpId, 1); Skip_Line;
+            Put("FLAG(1) or DISCOVER(2) a cell ? "); Get(UserOpId, 2); Skip_Line;
          end loop;
 
          while not (Userclick_x >= 0 and Userclick_x < Width) loop
@@ -144,8 +144,9 @@ package body Game is
             NewUserBoard := setFlag(NewUserBoard, Userclick_x, Userclick_y);
          elsif UserOpId = 2 and RealBoard(Userclick_x, Userclick_y) = 1 then
              -- CHECK IF USER CLICK ON A MINE (LOSE THE GAME)
-            -- DUMP GTK ?
+            DumpBoard (NewUserBoard);
             GameStatus := 2;
+            -- DUMP GTK ?
             exit;
          elsif UserOpId = 2 then
             -- USER WANT To DISCOVER A CELL
@@ -156,6 +157,7 @@ package body Game is
 
          if countUndiscoverCell(NewUserBoard) = MinesNumber then
             -- CHECK IF USER WIN
+            DumpBoard(NewUserBoard);
             GameStatus := 1;
             -- DUMP GTK ?
          else
