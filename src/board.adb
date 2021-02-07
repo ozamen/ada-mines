@@ -29,7 +29,7 @@ package body Board is
          --Put("|");
          for j in Col loop
             if Board(j, i) = -1 then
-               Put(ESC & "[47m" & ESC & "[37m" & Integer'Image (Board (j, i)) & ESC & "[0m");
+               Put(ESC & "[104m" & ESC & "[94m" & "  " & ESC & "[0m");
             elsif Board(j, i) = 0 then
                Put(ESC & "[107m" & ESC & "[97m" & Integer'Image (Board (j, i)) & ESC & "[0m");
             elsif Board(j, i) = 1 then
@@ -49,7 +49,7 @@ package body Board is
             elsif Board(j, i) = 8 then
                Put(ESC & "[107m" & ESC & "[90m" & Integer'Image (Board (j, i)) & ESC & "[0m");
             elsif Board(j, i) = 9 then
-               Put(ESC & "[47m" & ESC & "[91m" & " F" & ESC & "[0m");
+               Put(ESC & "[104m" & ESC & "[91m" & " F" & ESC & "[0m");
             else
                Put(ESC & "[107m" & ESC & "[97m" & Integer'Image (Board (j, i)) & ESC & "[0m");
             end if;
