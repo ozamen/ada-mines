@@ -7,11 +7,7 @@ package body Game is
     begin
         Put("[USERCLICK]"); New_Line;
 
-        -- CHECK IF USER CLICK ON A MINE
-        if RealBoard(Userclick_x, Userclick_y) = 1 then
-            Put("PERDU"); New_Line;
-            return generateUserBoard(666);
-        end if;
+
 
         Put("[GENERATE DISCOVER BOARD]"); New_Line;
         discoverBoard := discoverZone(NewUserBoard, RealBoard, MineBoard, Userclick_x, Userclick_y);
@@ -125,8 +121,8 @@ package body Game is
       NewUserBoard : Array2D := copyBoard(UserBoard);
    begin
       while GameStatus = 0 loop
-         Put("Apparently Mines Remaining: "); Put(MinesNumber - countFlag(UserBoard)); New_Line;
-         Put("Number of Undiscover Cell: "); Put(countUndiscoverCell(UserBoard)); New_Line;
+         Put("Apparently Mines Remaining: "); Put(MinesNumber - countFlag(NewUserBoard)); New_Line;
+         Put("Number of Undiscover Cell: "); Put(countUndiscoverCell(NewUserBoard)); New_Line;
 
          Userclick_x := -1; Userclick_y := -1; UserOpId := -1;
 
@@ -135,16 +131,22 @@ package body Game is
          end loop;
 
          while not (Userclick_x >= 0 and Userclick_x < Width) loop
-            Put_Line("X: "); Get(Userclick_x, 2); Skip_Line;
+            Put ("X: "); Get(Userclick_x, 2); Skip_Line;
          end loop;
 
          while not (Userclick_y >= 0 and Userclick_y < Height) loop
-            Put_Line("Y: "); Get(Userclick_y, 2); Skip_Line;
+            Put ("Y: "); Get(Userclick_y, 2); Skip_Line;
          end loop;
+
 
          if UserOpId = 1 then
             -- USER WANT TO FLAG A CELL
             NewUserBoard := setFlag(NewUserBoard, Userclick_x, Userclick_y);
+         elsif UserOpId = 2 and RealBoard(Userclick_x, Userclick_y) = 1 then
+             -- CHECK IF USER CLICK ON A MINE (LOSE THE GAME)
+            -- DUMP GTK ?
+            GameStatus := 2;
+            exit;
          elsif UserOpId = 2 then
             -- USER WANT To DISCOVER A CELL
             NewUserBoard := clickBoard(NewUserBoard, RealBoard, MineBoard, Userclick_x, Userclick_y);
@@ -152,11 +154,10 @@ package body Game is
             Put("ERROR UserOpId Parsing");
          end if;
 
-
-         if NewUserBoard(0, 0) = 666 then
-            GameStatus := 2;
-         elsif countUndiscoverCell(NewUserBoard) = MinesNumber then
+         if countUndiscoverCell(NewUserBoard) = MinesNumber then
+            -- CHECK IF USER WIN
             GameStatus := 1;
+            -- DUMP GTK ?
          else
             DumpBoard (NewUserBoard);
          end if;
