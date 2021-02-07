@@ -24,7 +24,7 @@ begin
    DumpBoard (UserBoard);
 
    -- GRAPHICAL INTERFACE
-   --initGTK(UserBoard);
+   --minitGTK(UserBoard);
    --DumpGTK(UserBoard);
 
    -- ASK TO DISCOVER THE FIRST CELL

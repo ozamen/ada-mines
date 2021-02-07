@@ -159,7 +159,7 @@ package body Game is
              -- CHECK IF USER CLICK ON A MINE (LOSE THE GAME)
             DumpBoard (NewUserBoard);
             GameStatus := 2;
-            initGTK(NewUserBoard);
+            loseGTK(NewUserBoard, RealBoard);
             exit;
          elsif UserOpId = 2 then
             -- USER WANT To DISCOVER A CELL
@@ -172,7 +172,7 @@ package body Game is
             -- CHECK IF USER WIN
             DumpBoard(NewUserBoard);
             GameStatus := 1;
-            initGTK(NewUserBoard);
+            winGTK(NewUserBoard);
          else
             DumpBoard (NewUserBoard);
          end if;

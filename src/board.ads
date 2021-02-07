@@ -4,6 +4,8 @@ with Ada.Numerics.discrete_Random;
 with Ada.Characters.Latin_1; use Ada.Characters.Latin_1;
 
 package Board is
+    -- CHOOSE YOUR DIFFICULTY
+
     -- BEGINNER MODE (10x10, 10 Mines)
     Height: constant Integer := 10;
     Width: constant Integer := 10;
