@@ -4,24 +4,50 @@ package body Board is
    -- PRINT THE CONSOLE BOARD
    procedure DumpBoard(Board : Array2D) is
    begin
-      Put("            "); Put_Line(" 0 1 2 3 4 5 6 7 8 9");
-      Put("            ");
-      for i in 0 .. Width loop
-          Put("--");
-      end loop;
-      New_Line;
+      Put("             "); Put_Line("0 1 2 3 4 5 6 7 8 9 (x)");
+      --Put("            ");
+      --for i in 0 .. Width loop
+          --Put("--");
+      --end loop;
+      --New_Line;
 
       for i in Line loop
-          Put(i); Put("|");
+         Put(i);
+         Put (" ");
+         --Put("|");
          for j in Col loop
-            Put(Integer'Image (Board (j, i)));
+            if Board(j, i) = -1 then
+               Put(ESC & "[47m" & ESC & "[37m" & Integer'Image (Board (j, i)) & ESC & "[0m");
+            elsif Board(j, i) = 0 then
+               Put(ESC & "[107m" & ESC & "[97m" & Integer'Image (Board (j, i)) & ESC & "[0m");
+            elsif Board(j, i) = 1 then
+               Put(ESC & "[107m" & ESC & "[34m" & Integer'Image (Board (j, i)) & ESC & "[0m");
+            elsif Board(j, i) = 2 then
+               Put(ESC & "[107m" & ESC & "[32m" & Integer'Image (Board (j, i)) & ESC & "[0m");
+            elsif Board(j, i) = 3 then
+               Put(ESC & "[107m" & ESC & "[91m" & Integer'Image (Board (j, i)) & ESC & "[0m");
+            elsif Board(j, i) = 4 then
+               Put(ESC & "[107m" & ESC & "[35m" & Integer'Image (Board (j, i)) & ESC & "[0m");
+            elsif Board(j, i) = 5 then
+               Put(ESC & "[107m" & ESC & "[33m" & Integer'Image (Board (j, i)) & ESC & "[0m");
+            elsif Board(j, i) = 6 then
+               Put(ESC & "[107m" & ESC & "[92m" & Integer'Image (Board (j, i)) & ESC & "[0m");
+            elsif Board(j, i) = 7 then
+               Put(ESC & "[107m" & ESC & "[30m" & Integer'Image (Board (j, i)) & ESC & "[0m");
+            elsif Board(j, i) = 8 then
+               Put(ESC & "[107m" & ESC & "[90m" & Integer'Image (Board (j, i)) & ESC & "[0m");
+            elsif Board(j, i) = 9 then
+               Put(ESC & "[47m" & ESC & "[91m" & " F" & ESC & "[0m");
+            else
+               Put(ESC & "[107m" & ESC & "[97m" & Integer'Image (Board (j, i)) & ESC & "[0m");
+            end if;
           end loop;
           New_Line;
       end loop;
-      Put("            ");
-      for i in 0 .. Width loop
-          Put("--");
-      end loop;
+      Put_Line("         (y)");
+      --for i in 0 .. Width loop
+      --    Put("--");
+      --end loop;
       New_Line;
    end DumpBoard;
 

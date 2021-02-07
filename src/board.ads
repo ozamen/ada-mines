@@ -1,6 +1,7 @@
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 with Ada.Numerics.discrete_Random;
+with Ada.Characters.Latin_1; use Ada.Characters.Latin_1;
 
 package Board is
 
