@@ -16,12 +16,11 @@ package body Board is
       Put_Line("              ADA MINESWEEPER v1.0");
       Put_Line("          Ozamen Corp Inc. Production");
       New_Line;
-      Put("             "); Put_Line("0 1 2 3 4 5 6 7 8 9 (x)");
-      --Put("            ");
-      --for i in 0 .. Width loop
-          --Put("--");
-      --end loop;
-      --New_Line;
+      Put("            ");
+      for i in 0 .. Width - 1 loop
+         Put(Integer'Image(i));
+      end loop;
+      Put_Line(" (x)");
 
       for i in Line loop
          Put(i);
@@ -57,9 +56,6 @@ package body Board is
           New_Line;
       end loop;
       Put_Line("         (y)");
-      --for i in 0 .. Width loop
-      --    Put("--");
-      --end loop;
       New_Line;
    end DumpBoard;
 
