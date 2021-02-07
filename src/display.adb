@@ -9,7 +9,7 @@ package body Display is
      return Boolean
    is
    begin
-      put("stp marche frrrr");
+      put("on_click working");
       return True;
    end on_click;
 
@@ -22,7 +22,7 @@ package body Display is
       err    : GError;
       table  : Gtk_Table;
       ev_box : Gtk_Event_Box;
-
+      tmp_str : constant String := "icons/";
       function Delete_Event_Cb
         (Self  : access Gtk_Widget_Record'Class;
          Event : Gdk.Event.Gdk_Event)
@@ -57,13 +57,13 @@ package body Display is
       win.add(ev_box);
 
       Gtk_New_Vbox (vbox);
-      ev_box.Add (vbox);
+      --ev_box.Add (vbox);
 
       table := Gtk_Table_New(10, 10, False);
       table.Set_Col_Spacings(0);
       table.Set_Row_Spacings(0);
 
-      vbox.add(table);
+      --vbox.add(table);
 
       --Connect(ev_box, "button-press-event", To_Marshaller(on_click'Access));
 
@@ -71,13 +71,29 @@ package body Display is
          for j in Integer range 0 .. 9 loop
             if UserBoard(j, i) = -1 then
                Gdk_New_From_File(pixbuf, "icons/not_disco.png", err );
-            end if;
-            if UserBoard(j, i) = 1 then
+            elsif UserBoard(j, i) = 0 then
+               Gdk_New_From_File(pixbuf, "icons/0.png", err );
+            elsif UserBoard(j, i) = 1 then
                Gdk_New_From_File(pixbuf, "icons/1.png", err );
-            end if;
+            elsif UserBoard(j, i) = 2 then
+               Gdk_New_From_File(pixbuf, "icons/2.png", err );
+            elsif UserBoard(j, i) = 3 then
+               Gdk_New_From_File(pixbuf, "icons/3.png", err );
+            elsif UserBoard(j, i) = 4 then
+               Gdk_New_From_File(pixbuf, "icons/4.png", err );
+            elsif UserBoard(j, i) = 5 then
+               Gdk_New_From_File(pixbuf, "icons/5.png", err );
+            elsif UserBoard(j, i) = 6 then
+               Gdk_New_From_File(pixbuf, "icons/6.png", err );
+            elsif UserBoard(j, i) = 7 then
+               Gdk_New_From_File(pixbuf, "icons/7.png", err );
+            elsif UserBoard(j, i) = 8 then
+               Gdk_New_From_File(pixbuf, "icons/8.png", err);
+            elsif UserBoard(j, i) = 9 then
+               Gdk_New_From_File(pixbuf, "icons/flagged.png", err );
+             end if;
+
             pixbuf := scale_simple(pixbuf, 25 , 25);
-
-
             Gtk_New (img, pixbuf);
             Table.Attach_Defaults(img, Guint(i), Guint(i+1), Guint(j), Guint(j+1));
 
