@@ -1,5 +1,23 @@
 # README
 
+## Ada-minesweeper
+
+Un démineur en console écrit en Ada.
+
+## Build
+	
+`make` ou `make check` afin de build.
+
+## Usage
+
+Userclick_x représente la coordonnée horizontale et Userclick_y la coordonnée verticale allant de 0 à 9.
+
+Flag permet de poser un flag sur une case.
+
+## Architecture
+
+
+
 ## Board descriptions
 
 ### RealBoard
@@ -25,3 +43,7 @@ Nombre de bombe voisines
 2. flag
 
 > Si ouvert + bombe = perdu
+
+## PPCO
+
+## DO
