@@ -35,7 +35,7 @@ package Board is
    function getMineCount(Board : Array2D; Pos_x : Col ; Pos_y : Line) return Integer;
    function checkMine(Board : Array2D; Pos_x : Integer ; Pos_y : Integer) return Integer;
    function checkCoord(Pos_x : Integer ; Pos_y : Integer) return Boolean;
-   function generateRandom(size : Integer) return Integer;
+   function generateRandom(size : Integer) return Integer with Pre => size >=0, Post => generateRandom'Result <= size;
    function copyBoard(Board : Array2D) return Array2D;
 
 end Board;

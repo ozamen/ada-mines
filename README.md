@@ -1,5 +1,12 @@
 # README
 
+Authors:
+
+- Antoine Coulon
+- Dorian Vinai
+- Vincent Payet
+- William Chow
+
 ## Ada-minesweeper
 
 Un démineur en console écrit en Ada.
@@ -40,7 +47,7 @@ Par défault, le jeu est au niveau "Beginner".
 
 ## Architecture
 
-### Gestion du plateau (Board.adb)
+## Gestion du plateau (Board.adb)
 
 > RealBoard (Ne change pas pendant la partie)
 
@@ -58,9 +65,9 @@ Nombres de bombes sur les cases voisines
 - 0-8: Nombres de bombes sur les cases voisines
 - 9: Flag
 
-### Gestion du jeu (Game.adb)
+## Gestion du jeu (Game.adb)
 
-### Interface Graphique (display.adb)
+## Interface Graphique (display.adb)
 
 Pour avoir une interface graphique, nous avons utilisé gtkada. Nous avions prévu de séparer en plusieurs parties:
 
@@ -70,16 +77,37 @@ Pour avoir une interface graphique, nous avons utilisé gtkada. Nous avions pré
 
 Malheureusement nous n'avons jamais pu faire une fonction de callback car gtk-handlers ne fonctionnait pas.
 
-Le compilateur nous a soutenu que Connect() et To_Marshaller() n'étaient pas visible et malgré plusieurs heures sur ce problème et de nombres tests différents. D'autres camarades se sont heurtés à cette même problématique et nous avons donc décidé d'abandonner la partie event.
+Le compilateur nous a soutenu que Connect() et To_Marshaller() n'étaient pas visible et malgré plusieurs heures sur ce problème et de nombres tests différents. D'autres camarades se sont heurtés à cette même problématique et nous avons donc décidé d'abandonner la partie event après beaucoup de temps perdu.
 
 La seule partie graphique du programme s'execute à la fin, où nous affichons le board final, que l'utilisateur ai perdu ou gagné.
 
 Pour l'affichage nous utilisons Gdk_Pixbuf pour charger et redimensionner l'image puis nous mettons le résultat dans une nouvelle variable Gtk_Image. Cette dernière est ensuite ajoutée dans la Gtk_Table, un widget parfait pour un jeu de plateau en deux dimensions. La table est contenue dans une Gtk_Vbox qui est elle contenue dans la Gtk_Window, notre fenêtre.
 
+## DO-178
+
+### High level requirements:
+
+- La première case cliqué ainsi que les 8 adjacentes ne contiennent pas de bombes.
+- Découvrir toutes les cases sans bombe provoque une victoire.
+- Un clique gauche sur:
+  - une case non ouverte qui contient une bombe -> provoque la fin de la partie
+  - une case non ouverte -> la découvre
+  - un flag ou une case ouverte -> ne fais rien
+- Un clique droit sur:
+  - une case non ouverte -> la flag  
+  - un flag -> enlève le flag
+  - une case ouverte -> ne fais rien
+
+### Low level requirements:
+
+- countFlag() doit renvoyer une entier supérieur ou égal à zéro
+- setFlag() doit renvoyer l'Array2D avec seulement l'endroit cliqué modifié
+- generateRandom() prends un entier et renvois forcément un entier inférieur ou égal à l'argument
+
 ## PPCO
 
-CONTRAT / POST ET PRECONDITION
+Nous avons utilisé des pré/post conditions dans les déclarations de fonctions suivantes:
 
-## DO
-
-HLR / LLR
+- function generateRandom(size : Integer) return Integer with Pre => size >=0, Post => generateRandom'Result <= size;
+- function setFlag(UserBoard : Array2D; Userclick_x, Userclick_y : Integer) return Array2D with Pre => Userclick_x >= 0 and Userclick_y >= 0;
+- function countFlag(UserBoard : Array2D) return Integer with Post => countFlag'Result >= 0;
