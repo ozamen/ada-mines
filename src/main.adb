@@ -54,6 +54,6 @@ begin
        Put("           YOU WIN THE GAME! "); New_Line;
    else
        Put("           YOU LOST THE GAME! "); New_Line;
+   end if;
 
-      end if;
 end Main;
