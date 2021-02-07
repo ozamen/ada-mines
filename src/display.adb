@@ -103,6 +103,7 @@ package body Display is
    procedure DumpGTK(UserBoard : Array2D) is
    begin
       Put("DUMP GTK WINDOW");
+      New_Line;
       for i in Line loop
          for j in Col loop
             Put(Integer'Image (UserBoard (j, i)));

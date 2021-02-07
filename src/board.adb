@@ -4,7 +4,7 @@ package body Board is
    -- PRINT THE CONSOLE BOARD
    procedure DumpBoard(Board : Array2D) is
    begin
-      Put("            "); Put_Line(" 0 1 2 3 4 5 6 7 8");
+      Put("            "); Put_Line(" 0 1 2 3 4 5 6 7 8 9");
       Put("            ");
       for i in 0 .. Width loop
           Put("--");
