@@ -20,8 +20,8 @@ begin
    UserBoard := generateUserBoard(-1);
    DumpBoard (UserBoard);
 
-   initGTK(UserBoard);
-   DumpGTK(UserBoard);
+   --initGTK(UserBoard);
+   --DumpGTK(UserBoard);
 
    Userclick_x := 2; Userclick_y := 3; Put_Line("Userclick_x: ");
    Get(Userclick_x, 2); Skip_Line;
