@@ -13,7 +13,7 @@ with Glib.Error; use Glib.Error;
 with Glib; use Glib;
 with Ada.Text_IO; use Ada.Text_IO;
 with Board; Use Board;
-
+with Ada.Strings.Unbounded; use Ada.Strings.unbounded;
 
 
 
