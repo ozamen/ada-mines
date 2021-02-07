@@ -121,18 +121,33 @@ package body Game is
 
    function gameLoop(UserBoard, RealBoard, MineBoard : Array2D) return Integer is
       GameStatus : Integer := 0;
-      Userclick_x : Integer; Userclick_y : Integer;
+      Userclick_x, Userclick_y : Integer;  UserOpId : Integer := 0;
       NewUserBoard : Array2D := copyBoard(UserBoard);
    begin
       while GameStatus = 0 loop
          Put("Apparently Mines Remaining: "); Put(MinesNumber - countFlag(UserBoard)); New_Line;
          Put("Number of Undiscover Cell: "); Put(countUndiscoverCell(UserBoard)); New_Line;
 
-         Put_Line("Userclick_x: "); Get(Userclick_x, 2); Skip_Line;
-         Put_Line("Userclick_y: "); Get(Userclick_y, 2); Skip_Line;
-         Put("Userclick_x: "); Put(Userclick_x); Put("| Userclick_y: "); Put(Userclick_y); New_Line;
 
-         NewUserBoard := clickBoard(NewUserBoard, RealBoard, MineBoard, Userclick_x, Userclick_y);
+         while UserOpId /= 1 and UserOpId /= 2 loop
+            Put("FLAG(1) or DISCOVER(2) a cell ?"); Get(UserOpId, 1); Skip_Line;
+         end loop;
+         if UserOpId = 1 then
+            -- USER WANT TO FLAG A CELL
+            Put_Line("FLAG Userclick_x: "); Get(Userclick_x, 2); Skip_Line;
+            Put_Line("FLAG Userclick_y: "); Get(Userclick_y, 2); Skip_Line;
+            Put("FLAG Userclick_x: "); Put(Userclick_x); Put("| FLAG Userclick_y: "); Put(Userclick_y); New_Line;
+            NewUserBoard := setFlag(NewUserBoard, Userclick_x, Userclick_y);
+         elsif UserOpId = 2 then
+            -- USER WANT To DISCOVER A CELL
+            Put_Line("Userclick_x: "); Get(Userclick_x, 2); Skip_Line;
+            Put_Line("Userclick_y: "); Get(Userclick_y, 2); Skip_Line;
+            Put("Userclick_x: "); Put(Userclick_x); Put("| Userclick_y: "); Put(Userclick_y); New_Line;
+            NewUserBoard := clickBoard(NewUserBoard, RealBoard, MineBoard, Userclick_x, Userclick_y);
+         else
+            Put("TU RESPECTE PAS LA NORME MON GARS LA TU FAIS NIMP CEST CHAUD SANS DEC");
+         end if;
+
 
          if NewUserBoard(0, 0) = 666 then
             GameStatus := 2;

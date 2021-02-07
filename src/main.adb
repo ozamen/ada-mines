@@ -10,42 +10,36 @@ with Display; use Display;
 procedure Main is
    RealBoard, MineBoard, UserBoard : Array2D;
    GameStatus : Integer:= 0;
-   Userclick_x : Integer; Userclick_y : Integer;
+   Userclick_x, Userclick_y : Integer;
 
    subtype Col is Integer range 0 .. Width - 1;
    subtype Line is Integer range 0 .. Height - 1;
 begin
-   Ada.Text_IO.Put_Line ("Welcome to ADA Minesweeper v1.0.0");
+   Ada.Text_IO.Put_Line ("Welcome to ADA Minesweeper v1.0 - An Ozamen Project");
 
    UserBoard := generateUserBoard(-1);
    DumpBoard (UserBoard);
 
+   -- GRAPHICAL INTERFACE
    --initGTK(UserBoard);
    --DumpGTK(UserBoard);
 
-   Userclick_x := 2; Userclick_y := 3; Put_Line("Userclick_x: ");
-   Get(Userclick_x, 2); Skip_Line;
+   -- ASK TO DISCOVER THE FIRST CELL
+   Put_Line("Userclick_x: "); Get(Userclick_x, 2); Skip_Line;
    Put_Line("Userclick_y: "); Get(Userclick_y, 2); Skip_Line;
-   --   Userclick_x := 3; Userclick_y := 3;
    Put("Userclick_x: "); Put(Userclick_x); Put("| Userclick_y: "); Put(Userclick_y); New_Line;
+
+   -- GENERATE THE REAL BOARD : MAPPING ALL THE MINE
    RealBoard := generateBoard(Userclick_x, Userclick_y);
-   DumpBoard (RealBoard);
+
+   -- GENERATE THE MINE BOARD : COMPUTING THE NUMBER OF MINE AROUND EACH CELL
    MineBoard := generateMineBoard(RealBoard);
-   DumpBoard (MineBoard);
+
+   -- GENERATE THE USER BOARD : THE CLIENT INTERFACE
    UserBoard := clickBoard(UserBoard, RealBoard, MineBoard, Userclick_x, Userclick_y);
+
+   -- PRINT THE BOARD
    DumpBoard (UserBoard);
-
-   -- USER WANT TO FLAG A CELL
-   Put_Line("FLAG Userclick_x: "); Get(Userclick_x, 2); Skip_Line;
-   Put_Line("FLAG Userclick_y: "); Get(Userclick_y, 2); Skip_Line;
-   --Userclick_x := 3;
-   --Userclick_y := 3;
-
-   Put("FLAG Userclick_x: "); Put(Userclick_x); Put("| FLAG Userclick_y: "); Put(Userclick_y); New_Line;
-   UserBoard := setFlag(UserBoard, Userclick_x, Userclick_y);
-   DumpBoard (UserBoard);
-
-
 
    GameStatus := gameLoop(UserBoard, RealBoard, MineBoard);
 
