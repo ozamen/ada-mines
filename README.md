@@ -11,7 +11,7 @@ Authors:
 
 Un démineur en console écrit en Ada.
 
-### Règle du jeu
+### Règles du jeu
 
 Comment gagner au démineur ?
 Le but du jeu est de découvrir toutes les cases libres sans faire exploser les mines.
@@ -51,15 +51,19 @@ Par défault, le jeu est au niveau "Beginner".
 
 ## Gestion du plateau (Board.adb)
 
+Ce fichier implémente les fonctions pour créer le board et le modifier, ainsi que des sous-types et des macros.
+
+Il contient aussi des fonctions pour initialiser plusieurs types de terrains qui sont les suivants:
+
 > RealBoard (Ne change pas pendant la partie)
 
-0. pas de bombe
-1. bombe
-2. point de départ
+- 0 : pas de bombe
+- 1 : bombe
+- -1: point de départ
 
 > MinesBoard (Ne change pas pendant la partie)
 
-Nombres de bombes sur les cases voisines
+Chaque case vaut le nombres de bombes sur les cases adjacentes.
 
 > UserBoard (Change pendant la partie)
 
@@ -68,6 +72,13 @@ Nombres de bombes sur les cases voisines
 - 9: Flag
 
 ## Gestion du jeu (Game.adb)
+
+Ce fichier implémente les fonctions liées au moteur de jeu:
+
+- La boucle principale: *gameLoop()*
+- La gestion de l'entrée utilisateur: *clickBoard()*
+- Les fonctions pour gérer la victoire / défaite: *countUndiscoverCell(), countFlag()*
+- Les foncions pour la gérer le comportement de la découverte *discoverZone(), discoverSafeZone()*
 
 ## Interface Graphique (display.adb)
 
