@@ -2,10 +2,10 @@
 
 Authors:
 
-- Antoine Coulon
-- Dorian Vinai
-- Vincent Payet
-- William Chow
+- *Antoine Coulon*
+- *Dorian Vinai*
+- *Vincent Payet*
+- *William Chow*
 
 ## Ada-minesweeper
 
@@ -23,13 +23,13 @@ Pour marquer une mine, utiliser l'option FLAG en entrant le chiffre 1, qui fera 
 
 Ensuite entrer respectivement les coordonnées X et Y de la case voulu.
 
-Le compteur ("Mines Remainings") sous le Board, indique le nombre de mines qu'il reste à trouver.
+Le compteur *"Mines Remainings"* sous le Board indique le nombre de mines qu'il reste à trouver.
 
 Le chiffre qui s'affiche sur les cases découvertes indique le nombre de mines se trouvant à proximité : à gauche ou à droite, en haut ou en bas, ou en diagonale.
 
 ## Build
 
-Nous avons utilisé la version Windows GNAT community (gnat-2020-20200429-x86_64-windows-bin.exe) avec GTKADA (gtkada-2020-x86_64-windows-bin.exe). L'IDE compile ensuite grâce au build.gpr.
+Nous avons utilisé la version Windows GNAT community (gnat-2020-20200429-x86_64-windows-bin.exe) avec GTKADA (gtkada-2020-x86_64-windows-bin.exe). L'IDE compile ensuite grâce au fichier *mines.gpr*.
 
 ## Usage
 
@@ -69,7 +69,7 @@ Nombres de bombes sur les cases voisines
 
 ## Interface Graphique (display.adb)
 
-Pour avoir une interface graphique, nous avons utilisé gtkada. Nous avions prévu de séparer en plusieurs parties:
+Pour avoir une interface graphique, nous avons utilisé la librairie *gtkada*. Nous avions prévu de séparer en plusieurs parties:
 
 - L'initialisation et le lancement de la boucle gtk.
 - Une fonction de callback qui gère l'entrée utilisateur et qui appelle le moteur de jeu.
@@ -77,32 +77,34 @@ Pour avoir une interface graphique, nous avons utilisé gtkada. Nous avions pré
 
 Malheureusement nous n'avons jamais pu faire une fonction de callback car gtk-handlers ne fonctionnait pas.
 
-Le compilateur nous a soutenu que Connect() et To_Marshaller() n'étaient pas visible et malgré plusieurs heures sur ce problème et de nombres tests différents. D'autres camarades se sont heurtés à cette même problématique et nous avons donc décidé d'abandonner la partie event après beaucoup de temps perdu.
+Le compilateur nous a soutenu que *Connect()* et *To_Marshaller()* n'étaient pas visible et malgré plusieurs heures sur ce problème et de nombres tests différents. D'autres camarades se sont heurtés à cette même problématique et nous avons donc décidé d'abandonner la partie event après beaucoup de temps perdu.
 
 La seule partie graphique du programme s'execute à la fin, où nous affichons le board final, que l'utilisateur ai perdu ou gagné.
 
-Pour l'affichage nous utilisons Gdk_Pixbuf pour charger et redimensionner l'image puis nous mettons le résultat dans une nouvelle variable Gtk_Image. Cette dernière est ensuite ajoutée dans la Gtk_Table, un widget parfait pour un jeu de plateau en deux dimensions. La table est contenue dans une Gtk_Vbox qui est elle contenue dans la Gtk_Window, notre fenêtre.
+Pour l'affichage nous utilisons *Gdk_Pixbuf* pour charger et redimensionner l'image puis nous mettons le résultat dans une nouvelle variable *Gtk_Image*. Cette dernière est ensuite ajoutée dans la *Gtk_Table*, un widget parfait pour un jeu de plateau en deux dimensions. La table est contenue dans une *Gtk_Vbox* qui est elle contenue dans la *Gtk_Window*, notre fenêtre.
 
 ## DO-178
 
-### High level requirements:
+### High level requirements
 
 - La première case cliqué ainsi que les 8 adjacentes ne contiennent pas de bombes.
 - Découvrir toutes les cases sans bombe provoque une victoire.
+- On peut placer un flag sur toutes les cases.
+- Cliquer sur une case blanche (sans bombes adjacentes) découvre toutes les cases autour et applique cette logique récursivement aux autres cases blanches adjacentes.
 - Un clique gauche sur:
   - une case non ouverte qui contient une bombe -> provoque la fin de la partie
-  - une case non ouverte -> la découvre
+  - une case non ouverte vide -> la découvre
   - un flag ou une case ouverte -> ne fais rien
 - Un clique droit sur:
   - une case non ouverte -> la flag  
   - un flag -> enlève le flag
   - une case ouverte -> ne fais rien
 
-### Low level requirements:
+### Low level requirements
 
-- countFlag() doit renvoyer une entier supérieur ou égal à zéro
-- setFlag() doit renvoyer l'Array2D avec seulement l'endroit cliqué modifié
-- generateRandom() prends un entier et renvois forcément un entier inférieur ou égal à l'argument
+- *countFlag()* doit renvoyer une entier supérieur ou égal à zéro
+- *setFlag()* doit renvoyer l'Array2D avec seulement l'endroit cliqué modifié
+- *generateRandom()* prends un entier et renvois forcément un entier inférieur ou égal à l'argument
 
 ## PPCO
 
