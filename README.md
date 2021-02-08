@@ -67,18 +67,18 @@ Chaque case vaut le nombres de bombes sur les cases adjacentes.
 
 > UserBoard (Change pendant la partie)
 
-- -1: Fermé
-- 0-8: Nombres de bombes sur les cases voisines
-- 9: Flag
+- -1 : Fermé
+- 0 à 8: Nombres de bombes sur les cases voisines
+- 9 : Flag
 
 ## Gestion du jeu (Game.adb)
 
 Ce fichier implémente les fonctions liées au moteur de jeu:
 
-- La boucle principale: *gameLoop()*
-- La gestion de l'entrée utilisateur: *clickBoard()*
-- Les fonctions pour gérer la victoire / défaite: *countUndiscoverCell(), countFlag()*
-- Les foncions pour la gérer le comportement de la découverte *discoverZone(), discoverSafeZone()*
+- La boucle principale: *gameLoop()*.
+- La gestion de l'entrée utilisateur: *clickBoard()*.
+- Les fonctions pour gérer la victoire / défaite: *countUndiscoverCell(), countFlag()*.
+- Les fonctions pour la gérer le comportement de la découverte *discoverZone(), discoverSafeZone()*.
 
 ## Interface Graphique (display.adb)
 
