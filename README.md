@@ -31,6 +31,8 @@ Le chiffre qui s'affiche sur les cases découvertes indique le nombre de mines s
 
 Nous avons utilisé la version Windows GNAT community (gnat-2020-20200429-x86_64-windows-bin.exe) avec GTKADA (gtkada-2020-x86_64-windows-bin.exe). L'IDE compile ensuite grâce au build.gpr.
 
+Ne pas oublier de créer un dossier `obj` à la racine afin de build.
+
 ## Usage
 
 Le niveau de difficulté du jeu est modulable.
@@ -100,9 +102,9 @@ Pour l'affichage nous utilisons Gdk_Pixbuf pour charger et redimensionner l'imag
 
 ### Low level requirements:
 
-- countFlag() doit renvoyer une entier supérieur ou égal à zéro
+- countFlag() doit renvoyer un entier supérieur ou égal à zéro
 - setFlag() doit renvoyer l'Array2D avec seulement l'endroit cliqué modifié
-- generateRandom() prends un entier et renvois forcément un entier inférieur ou égal à l'argument
+- generateRandom() prend un entier et renvoit forcément un entier inférieur ou égal à l'argument
 
 ## PPCO
 
@@ -111,3 +113,5 @@ Nous avons utilisé des pré/post conditions dans les déclarations de fonctions
 - function generateRandom(size : Integer) return Integer with Pre => size >=0, Post => generateRandom'Result <= size;
 - function setFlag(UserBoard : Array2D; Userclick_x, Userclick_y : Integer) return Array2D with Pre => Userclick_x >= 0 and Userclick_y >= 0;
 - function countFlag(UserBoard : Array2D) return Integer with Post => countFlag'Result >= 0;
+- function countUndiscoverCell(UserBoard : Array2D) return Integer with Post => countUndiscoverCell'Result >= 0;
+- function checkMine(Board : Array2D; Pos_x : Integer ; Pos_y : Integer) return Integer with Post => checkMine'Result <= 8;
